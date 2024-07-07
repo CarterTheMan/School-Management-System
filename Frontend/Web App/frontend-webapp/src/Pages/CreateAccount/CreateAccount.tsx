@@ -1,29 +1,25 @@
-import React, { useEffect } from 'react';
-import "./Login.css";
+import React from 'react';
+import "./CreateAccount.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
-import Cookie from 'universal-cookie';
 
+interface props {
+    type: string
+}
 
-export default function Login() {
+export default function CreateAccount({type} : props) {
   let params = useParams();
   let navigate = useNavigate(); 
+  const [firstName, setFirstName] = React.useState<string>('');
+  const [lastName, setLastName] = React.useState<string>('');
   const [username, setUsername] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
 
-  // On load of login
-  useEffect(() => {
-    // If already authenticated, go to dashboard
-    const cookies = new Cookie();
-    if (cookies.get("authenticated") != undefined) {
-      navigate("/dashboard");
-    }
-  }, []);
 
-  // If successful login, go to redirect page or the dashboard
+
+  // If successful account creation, go to redirect page or the dashboard
   const handleSubmit = async function () {
-    console.log(params.id);
 
     // If authenticated
     if (username != '' && password != '') {
@@ -45,15 +41,27 @@ export default function Login() {
     }
   }
 
-  // Navigate to create a student account page
-  const handleCreateStudentAccount = async function () {
-    navigate("/createStudentAccount");
-  }
-
   return (
     <div>
       <br />
-      <form className='login-form'>
+      <form className='CreateAccount-form'>
+      <TextField
+          type="text"
+          label="First Name"
+          onChange={e => setFirstName(e.target.value)}
+          required
+          value={firstName}
+          sx={{ mt: 4, ml: 4, mr: 4, display: 'inline-flex' }}
+        />
+        <TextField
+          type="text"
+          label="Last Name"
+          onChange={e => setLastName(e.target.value)}
+          required
+          value={lastName}
+          sx={{ mt: 4, ml: 4, mr: 4, display: 'inline-flex' }}
+        />
+        <br />
         <TextField
           type="text"
           label="Username"
@@ -79,19 +87,7 @@ export default function Login() {
           onClick={handleSubmit}
           sx={{ ml: 4, mr: 4, mb: 4 }}
         >
-          Login
-        </Button>
-        <br />
-        <br />
-        <h3>New student?</h3>
-        <Button
-          variant="contained"
-          color="primary"
-          type="button"
-          onClick={handleCreateStudentAccount}
-          sx={{ ml: 4, mr: 4, mb: 4 }}
-        >
-          Create an account
+          Create account
         </Button>
       </form>
     </div>
