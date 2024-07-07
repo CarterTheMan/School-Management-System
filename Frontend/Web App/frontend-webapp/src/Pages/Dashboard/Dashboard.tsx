@@ -15,7 +15,6 @@ export default function Dashboard() {
         // If not authenticated, create redirect and go to login
         if (cookies.get("authenticated") == undefined) {
             const cookies = new Cookies(null, { path: '/' });
-            console.log("Here");
             cookies.set("redirect", "/dashboard");
             navigate("/login");
         }

@@ -30,7 +30,6 @@ export default function CreateAccount({type} : props) {
       // If there is a redirect cookie, go to redirect link
       if (cookies.get("redirect") != undefined) {
         const redirectLink = cookies.get("redirect");
-        console.log(redirectLink);
         cookies.remove("redirect");
         navigate(redirectLink);
 
