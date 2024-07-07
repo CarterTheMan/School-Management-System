@@ -5,14 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './Routes/Routes';
+import { createTheme, ThemeProvider } from '@mui/material/styles';;
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#ff8f00"
+    },
+    secondary: {
+      main: "#ffcc80"
+    }
+  }
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
