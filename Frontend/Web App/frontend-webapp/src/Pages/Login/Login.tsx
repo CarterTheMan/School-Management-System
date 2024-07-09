@@ -52,6 +52,8 @@ export default function Login() {
       .catch(function(error) {
         console.log(error);
       })
+
+      // Clear the username and password fields
       setUsername("");
       setPassword("");
 
