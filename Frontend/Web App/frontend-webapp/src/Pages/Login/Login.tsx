@@ -37,10 +37,11 @@ export default function Login() {
 
     // Iterate through all users to try and login
     for (const userType of userTypes) {
-      const response = await axios.post('http://localhost:8080/login-' + userType, {
+      await axios.post('http://localhost:8080/login-' + userType, {
         "username" : username, 
         "password" : password
-      }).then(async function(response) {
+      })  
+      .then(function(response) {
         if (response.data == "Success") {
           authenticated = true;
         } else if (response.data == "Incorrect password") {

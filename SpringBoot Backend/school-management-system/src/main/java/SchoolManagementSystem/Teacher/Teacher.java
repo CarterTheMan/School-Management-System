@@ -41,11 +41,11 @@ public class Teacher {
         return id;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return lastname;
     }
 

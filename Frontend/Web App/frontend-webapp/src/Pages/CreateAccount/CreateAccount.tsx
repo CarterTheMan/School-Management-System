@@ -3,6 +3,7 @@ import "./CreateAccount.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 interface props {
     type: string
@@ -20,9 +21,26 @@ export default function CreateAccount({type} : props) {
 
   // If successful account creation, go to redirect page or the dashboard
   const handleSubmit = async function () {
+    let authenticated : boolean = false;
+
+    // Create the user 
+    await axios.post('http://localhost:8080/register-' + type, {
+      "firstname": firstName,
+      "lastname": lastName,
+      "username" : username, 
+      "password" : password
+    })
+    .then(function(response) {
+      if (response.status == 200) {
+        authenticated = true;
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
 
     // If authenticated
-    if (username != '' && password != '') {
+    if (authenticated) {
       // Create new authentication cookie
       const cookies = new Cookies(null, { path: '/' });
       cookies.set("authenticated", username);
@@ -44,7 +62,7 @@ export default function CreateAccount({type} : props) {
     <div>
       <br />
       <h1 style={{textAlign: "center"}}>Create a {type} account</h1>
-      <form className='CreateAccount-form'>
+      <div className='CreateAccount-form'>
         <TextField
           type="text"
           label="First Name"
@@ -89,7 +107,7 @@ export default function CreateAccount({type} : props) {
         >
           Create account
         </Button>
-      </form>
+      </div>
     </div>
   );
 }

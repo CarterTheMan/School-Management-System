@@ -1,6 +1,8 @@
 package SchoolManagementSystem.Student;
 
 import SchoolManagementSystem.StudentCourse.StudentCourse;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,16 +15,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column
+    @Column(name = "firstname")
     String firstname;
 
-    @Column
+    @Column(name = "lastname")
     String lastname;
 
-    @Column
+    @Column(name = "username")
     String username;
 
-    @Column
+    @Column(name = "password")
     String password;
 
     @OneToMany(mappedBy = "student")
@@ -41,11 +43,11 @@ public class Student {
         return id;
     }
 
-    public String getFirstName() {
+    public String getFirstname() {
         return firstname;
     }
 
-    public String getLastName() {
+    public String getLastname() {
         return lastname;
     }
 
