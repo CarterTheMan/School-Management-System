@@ -43,8 +43,9 @@ export default function CreateAccount({type} : props) {
   return (
     <div>
       <br />
+      <h1 style={{textAlign: "center"}}>Create a {type} account</h1>
       <form className='CreateAccount-form'>
-      <TextField
+        <TextField
           type="text"
           label="First Name"
           onChange={e => setFirstName(e.target.value)}
