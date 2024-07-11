@@ -1,6 +1,7 @@
 import "./Home.css";
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import SideBar from "../../Components/SideBar/SideBar";
 
 export default function Home() {
   let navigate = useNavigate(); 
@@ -22,6 +23,7 @@ export default function Home() {
         >
           Login
         </Button>
+        <SideBar />
     </div>
   );
 }
