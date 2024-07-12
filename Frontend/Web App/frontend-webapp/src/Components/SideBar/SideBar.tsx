@@ -10,6 +10,7 @@ export default function SideBar() {
     return (
         <Sidebar>
             <Menu>
+                <MenuItem> Dashboard </MenuItem>
                 <SubMenu label="Charts">
                     <MenuItem> Pie charts </MenuItem>
                     <MenuItem> Line charts </MenuItem>
