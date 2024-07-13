@@ -3,7 +3,7 @@ import "./SideBar.css";
 import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, MenuItemStyles } from 'react-pro-sidebar';
 import { Button } from '@mui/material';
 import Cookie from 'universal-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Spiral as Hamburger } from 'hamburger-react'
 
 interface props {
@@ -44,9 +44,9 @@ export default function SideBar({page} : props) {
                                 <Hamburger toggled={!collapsed} onToggle={() => setCollapsed(!collapsed)} direction={'right'} />
                             )
                         }
-                        <MenuItem> Dashboard </MenuItem>
-                        <MenuItem> Courses </MenuItem>
-                        <MenuItem> Grades </MenuItem>
+                        <MenuItem component={<Link to="/dashboard" />}> Dashboard </MenuItem>
+                        <MenuItem component={<Link to="/courses" />}> Courses </MenuItem>
+                        <MenuItem component={<Link to="/grades" />}> Grades </MenuItem>
                         {
                             !collapsed ? 
                             <div style={{paddingBottom: '5vh', bottom: '0', left: '0', right: '0', position: 'absolute', textAlign: 'center'}}>
