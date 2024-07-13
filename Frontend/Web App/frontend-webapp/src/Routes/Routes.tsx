@@ -5,17 +5,6 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import CreateAccount from "../Pages/CreateAccount/CreateAccount";
 import SideBar from "../Components/SideBar/SideBar";
 
-function elementWithSidebar(render:JSX.Element): JSX.Element {
-    return (
-        <div style={{ display: 'flex', height: '100%' }}>
-            <SideBar />
-            <main>
-                {render}
-            </main>
-        </div>
-    )
-}
-
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -34,7 +23,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: elementWithSidebar(<Dashboard />),
+        element:<SideBar page={<Dashboard />} />,
         children: []
     }
 ])
