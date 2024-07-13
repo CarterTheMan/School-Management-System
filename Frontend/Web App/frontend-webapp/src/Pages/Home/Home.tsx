@@ -23,7 +23,6 @@ export default function Home() {
         >
           Login
         </Button>
-        <SideBar />
     </div>
   );
 }
