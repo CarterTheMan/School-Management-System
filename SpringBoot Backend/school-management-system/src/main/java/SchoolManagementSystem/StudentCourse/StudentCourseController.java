@@ -1,5 +1,6 @@
 package SchoolManagementSystem.StudentCourse;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +30,18 @@ public class StudentCourseController {
     @RequestMapping(method = RequestMethod.GET, path = "/studentCourse/{id}")
     Optional<StudentCourse> getStudentCourse(@PathVariable Integer id) {
         return studentCourses.findById(id);
+    }
+
+    //This returns all student courses of a student
+    @RequestMapping(method = RequestMethod.GET, path = "/studentsCourses/{student_id}")
+    List<StudentCourse> getStudentsCourses(@PathVariable Integer student_id) {
+        List<StudentCourse> studentCourseList = studentCourses.findAll();
+        List<StudentCourse> list = new java.util.ArrayList<>(Collections.emptyList());
+        for (StudentCourse course : studentCourseList) {
+            if (course.student.getId().equals(student_id)) {
+                list.add(course);
+            }
+        }
+        return list;
     }
 }

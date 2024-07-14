@@ -5,6 +5,7 @@ import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
 import axios from 'axios';
+import { baseLink } from '../../Routes/General';
 
 
 export default function Login() {
@@ -33,21 +34,23 @@ export default function Login() {
     console.log(params.id);
     let authenticated : boolean = false;
     let incorrectPassword : boolean = false;
+    let id : number = 0;
+    let type : String = "";
     const userTypes: String[] = ["student", "teacher"];
 
     // Iterate through all users to try and login
     for (const userType of userTypes) {
-      await axios.post('http://localhost:8080/login-' + userType, {
+      await axios.post(baseLink + '/login-' + userType, {
         "username" : username, 
         "password" : password
       })  
       .then(function(response) {
-        if (response.data == "Success") {
-          authenticated = true;
-        } else if (response.data == "Incorrect password") {
+        if (response.data == "Incorrect password") {
           incorrectPassword = true;
         } else {
-          console.log(response.data);
+          authenticated = true;
+          id = parseInt(response.data);
+          type = userType;
         }
       })
       .catch(function(error) {
@@ -67,7 +70,11 @@ export default function Login() {
     if (authenticated) {
       // Create new authentication cookie
       const cookies = new Cookies(null, { path: '/' });
-      cookies.set("authenticated", username);
+      cookies.set("authenticated", {
+        "userType" : type,
+        "id" : id,
+        "username" : username
+      });
 
       // If there is a redirect cookie, go to redirect link
       if (cookies.get("redirect") != undefined) {

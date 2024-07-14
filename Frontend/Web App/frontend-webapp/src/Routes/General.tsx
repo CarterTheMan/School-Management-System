@@ -3,6 +3,9 @@ import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
 import { useEffect } from "react";
 
+const baseLink = "http://localhost:8080";
+export { baseLink };
+
 export function AuthenticateAndReload(pageURL : string) {
     let navigate = useNavigate(); 
     const cookies = new Cookie();

@@ -39,7 +39,7 @@ public class StudentController {
         List<Student> studentList = Students.findAll();
         for (Student stu : studentList) {
             if (stu.getUsername().equals(s.getUsername()) && stu.getPassword().equals(s.getPassword())) {
-                return new ResponseEntity<>("Success", HttpStatus.OK);
+                return new ResponseEntity<>(stu.id.toString(), HttpStatus.OK);
             } else if (stu.getUsername().equals(s.getUsername())) {
                 return new ResponseEntity<>("Incorrect password", HttpStatus.OK);
             }
