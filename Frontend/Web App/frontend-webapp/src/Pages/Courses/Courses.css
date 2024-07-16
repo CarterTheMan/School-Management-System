@@ -1,0 +1,16 @@
+.courses-container {
+    display: grid;
+    width: 97%;
+    padding: 2%;
+    padding-top: 2vh;
+    padding-left: 2vw;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-content: space-between;
+    column-gap: 0px;
+    text-align: center;
+}
+
+.course-page {
+    width: 100%;
+    padding-top: 2vh;
+}

@@ -67,7 +67,7 @@ export default function SideBar({page} : props) {
                 </Sidebar>
             </div>
 
-            <main>
+            <main style={{width: "100%"}}>
                 {broken && (
                     <div style={{zIndex: '2', backgroundColor: "grey", width: "100vw"}}>
                         <Hamburger toggle={setToggled} onToggle={() => {setToggled(!toggled); setCollapsed(false)}} />
