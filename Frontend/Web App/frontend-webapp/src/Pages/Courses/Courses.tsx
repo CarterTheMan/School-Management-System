@@ -7,18 +7,19 @@ import { useEffect } from "react";
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import CourseCard from "../../Components/CourseCards/CourseCard";
+import Cookies from "universal-cookie";
 
 
 export default function Courses() {
     let navigate = useNavigate(); 
-    const cookies = new Cookie();
+    const cookies = new Cookies();
     const [classes, setClasses] = React.useState<any[]>([{}]);
     const [classesLoaded, setClassesLoaded] = React.useState<boolean>(false);
 
     AuthenticateAndReload("/courses");
     
     // Get all the courses for a user
-    useEffect(() => {
+    useEffect(() => {        
         async function getCourses() {
             axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["id"], {})
                 .then(function(response) {
@@ -52,7 +53,7 @@ export default function Courses() {
                 {classesLoaded && classes.length > 0 &&
                     classes.map(function(data) {
                         return (
-                            <CourseCard title={data.teacherCourse.course.title} description={data.teacherCourse.course.description} />                       
+                            <CourseCard title={data.teacherCourse.course.title} description={data.teacherCourse.course.description} id={data.id} />                       
                         )
                     })
                 }

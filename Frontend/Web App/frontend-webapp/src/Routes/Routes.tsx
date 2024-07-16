@@ -6,6 +6,7 @@ import CreateAccount from "../Pages/CreateAccount/CreateAccount";
 import SideBar from "../Components/SideBar/SideBar";
 import Courses from "../Pages/Courses/Courses";
 import Grades from "../Pages/Grades/Grades";
+import Course from "../Pages/Course/Course";
 
 export const router = createBrowserRouter([
     {
@@ -31,6 +32,11 @@ export const router = createBrowserRouter([
     {
         path: "/courses",
         element:<SideBar page={<Courses />} />,
+        children: []
+    },
+    {
+        path: "/course/:courseId",
+        element:<SideBar page={<Course />} />,
         children: []
     },
     {

@@ -7,7 +7,7 @@ import { AuthenticateAndReload } from "../../Routes/General";
 
 export default function Grades() {
     let navigate = useNavigate(); 
-    const cookies = new Cookie();
+    const cookies = new Cookies();
 
     AuthenticateAndReload("/grades");
     

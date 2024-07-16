@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import Cookie from 'universal-cookie';
 import { useNavigate, Link } from 'react-router-dom';
 import { Spiral as Hamburger } from 'hamburger-react'
+import Cookies from 'universal-cookie';
 
 interface props {
     page: JSX.Element
@@ -14,14 +15,14 @@ interface props {
 // Burger for collapsing the menu: https://www.npmjs.com/package/hamburger-react?activeTab=readme
 export default function SideBar({page} : props) {
     let navigate = useNavigate(); 
-    const cookies = new Cookie();
+    const cookies = new Cookies();
     const [collapsed, setCollapsed] = React.useState<boolean>(false);
     const [toggled, setToggled] = React.useState<boolean>(false);
     const [broken, setBroken] = React.useState<boolean>(false);
 
     // logout to the home page, destroy authenticated cookie
     const handleLogout = async function () {
-        cookies.remove("authenticated");
+        cookies.remove("authenticated", {path: "/"});
         navigate("/");
     }
 

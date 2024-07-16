@@ -3,11 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
 import { AuthenticateAndReload } from "../../Routes/General";
+import { useEffect } from "react";
 
 
 export default function Dashboard() {
     let navigate = useNavigate(); 
-    const cookies = new Cookie();
+    const cookies = new Cookies();
 
     AuthenticateAndReload("/dashboard");
     

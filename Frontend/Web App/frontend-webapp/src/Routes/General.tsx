@@ -6,6 +6,8 @@ import { useEffect } from "react";
 const baseLink = "http://localhost:8080";
 export { baseLink };
 
+// If a user opens a direct link, make sure they are authenticated
+// If not, redirect them to login
 export function AuthenticateAndReload(pageURL : string) {
     let navigate = useNavigate(); 
     const cookies = new Cookie();
@@ -19,4 +21,15 @@ export function AuthenticateAndReload(pageURL : string) {
             navigate("/login");
         }
     }, []);
+}
+
+// Make sure a user is on a page they are allowed to access
+export async function UserAllowedOnPage(userId: number, userName: String) {
+    const cookies = new Cookies();
+    let navigate = useNavigate(); 
+
+    if (cookies.get("authenticated")["username"] != userName || cookies.get("authenticated")["id"] != userId) {
+        cookies.remove("authenticated", {path: "/"});
+        navigate("/login");
+    }
 }
