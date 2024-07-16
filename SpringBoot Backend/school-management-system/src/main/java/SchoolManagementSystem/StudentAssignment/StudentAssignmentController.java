@@ -1,8 +1,10 @@
 package SchoolManagementSystem.StudentAssignment;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import SchoolManagementSystem.StudentCourse.StudentCourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +31,18 @@ public class StudentAssignmentController {
     @RequestMapping(method = RequestMethod.GET, path = "/studentAssignment/{id}")
     Optional<StudentAssignment> getStudentAssignment(@PathVariable Integer id) {
         return studentAssignments.findById(id);
+    }
+
+    //This returns all assignments for a course
+    @RequestMapping(method = RequestMethod.GET, path = "/courseAssignments/{student_course_id}")
+    List<StudentAssignment> getCourseAssignments(@PathVariable Integer student_course_id) {
+        List<StudentAssignment> assignmentList = studentAssignments.findAll();
+        List<StudentAssignment> list = new java.util.ArrayList<>(Collections.emptyList());
+        for (StudentAssignment sa : assignmentList) {
+            if (sa.getStudentCourse().getId().equals(student_course_id)) {
+                list.add(sa);
+            }
+        }
+        return list;
     }
 }
