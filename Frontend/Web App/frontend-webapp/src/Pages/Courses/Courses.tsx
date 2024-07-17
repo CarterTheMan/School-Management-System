@@ -17,18 +17,20 @@ export default function Courses() {
     const [classesLoaded, setClassesLoaded] = React.useState<boolean>(false);
 
     AuthenticateAndReload("/courses");
-    
+
     // Get all the courses for a user
     useEffect(() => {        
         async function getCourses() {
-            axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["id"], {})
-                .then(function(response) {
-                    setClasses(response.data);
-                    setClassesLoaded(true);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
+            if (cookies.get("authenticated") != undefined) {
+                axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["id"], {})
+                    .then(function(response) {
+                        setClasses(response.data);
+                        setClassesLoaded(true);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    })
+            }
         }
 
         getCourses();

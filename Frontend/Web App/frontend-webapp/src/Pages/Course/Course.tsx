@@ -14,7 +14,7 @@ export default function Course() {
     const [assignments, setAssignments] = React.useState<any[]>([]);
     const cookies = new Cookies();
 
-    AuthenticateAndReload("/course");
+    AuthenticateAndReload("/course/" + params.courseId);
     
     // Get all the assignments for a class on page load
     useEffect(() => {

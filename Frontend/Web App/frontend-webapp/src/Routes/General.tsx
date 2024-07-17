@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
 import { useEffect } from "react";
@@ -14,7 +14,7 @@ export function AuthenticateAndReload(pageURL : string) {
 
     // On load of page
     useEffect(() => {
-         // If not authenticated, create redirect cookie and go to login
+        // If not authenticated, create redirect cookie and go to login page
         if (cookies.get("authenticated") == undefined) {
             const cookies = new Cookies(null, { path: '/' });
             cookies.set("redirect", pageURL);
