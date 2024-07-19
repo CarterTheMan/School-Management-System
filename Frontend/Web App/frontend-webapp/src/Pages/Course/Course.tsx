@@ -23,8 +23,9 @@ export default function Course() {
         async function getAssignments() {
             await axios.get(baseLink + '/studentAssignment/' + params.courseId, {})
                 .then(function(response) {
-                    setAssignments(response.data);
-                    console.log(response.data);
+                    let newAssignments = { ...assignments };
+                    newAssignments = response.data;
+                    setAssignments(newAssignments);
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -33,33 +34,28 @@ export default function Course() {
 
         getAssignments();
     }, []);
+
     
     // What table to use: https://www.material-react-table.com/docs/guides/row-selection#relevant-table-options
     return (
-        // <div>
-        //     {!(assignments.length > 0) ? 
-        //         assignments.map(
-        //             function(data) {
-        //                 return (
-        //                     <p>{data.studentCourse.student.id}</p>                       
-        //                 )
-        //             }
-        //         )
-        //         : 
-        //         <div>
-        //             {assignments.map(
-        //                 function(data) {
-        //                     if (data.studentCourse.student.id != undefined) {
-        //                         return (
-        //                             <p>{data.studentCourse.student.id}</p>                       
-        //                         )
-        //                     } 
-        //                 })
-        //             }
-        //         </div>
-        //     }
-        // </div>
-        <div></div>
+        <div>
+            {/* If assignments don't exist */}
+            {!(assignments.length == 0) &&
+                <CircularProgress color="primary" />
+            }
+
+            {/* If assignments exist */}
+            {(assignments.length > 0) && 
+            assignments.map(
+                function(data) {
+                    if (data.studentCourse.student.id != undefined) {
+                        return (
+                            <p>{data.studentCourse.student.id}</p>                       
+                        )
+                    } 
+                })
+            }
+        </div>
     )
 
 }
