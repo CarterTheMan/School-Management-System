@@ -24,12 +24,15 @@ export function AuthenticateAndReload(pageURL : string) {
 }
 
 // Make sure a user is on a page they are allowed to access
-export async function UserAllowedOnPage(userId: number, userName: String) {
+export function UserAllowedOnPage(userId: number) {
     const cookies = new Cookies();
     let navigate = useNavigate(); 
 
-    if (cookies.get("authenticated")["username"] != userName || cookies.get("authenticated")["id"] != userId) {
-        cookies.remove("authenticated", {path: "/"});
-        navigate("/login");
-    }
+    // on load
+    useEffect(() => {
+        if (cookies.get("authenticated")["id"] != userId) {
+            cookies.remove("authenticated", {path: "/"});
+            navigate("/login");
+        }
+    }, []);
 }

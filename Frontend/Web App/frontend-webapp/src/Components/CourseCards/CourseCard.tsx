@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 interface props {
     title: String,
     description: String,
-    id: String
+    id: number
 }
 
 export default function CourseCard({title, description, id} : props) {

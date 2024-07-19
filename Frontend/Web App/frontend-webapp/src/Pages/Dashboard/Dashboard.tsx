@@ -2,7 +2,7 @@ import "./Dashboard.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
-import { AuthenticateAndReload } from "../../Routes/General";
+import { AuthenticateAndReload } from "../../General/Authentication";
 import { useEffect } from "react";
 import React from "react";
 

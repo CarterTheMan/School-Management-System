@@ -1,19 +1,19 @@
 import "./Courses.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookie from 'universal-cookie';
-import { AuthenticateAndReload, baseLink } from "../../Routes/General";
+import { AuthenticateAndReload, baseLink } from "../../General/Authentication";
 import axios from 'axios';
 import { useEffect } from "react";
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import CourseCard from "../../Components/CourseCards/CourseCard";
 import Cookies from "universal-cookie";
-
+import { studentCourse } from "../../General/TableTypes";
 
 export default function Courses() {
     let navigate = useNavigate(); 
     const cookies = new Cookies();
-    const [classes, setClasses] = React.useState<any[]>([{}]);
+    const [classes, setClasses] = React.useState<studentCourse[]>([]);
     const [classesLoaded, setClassesLoaded] = React.useState<boolean>(false);
 
     AuthenticateAndReload("/courses");
@@ -55,7 +55,7 @@ export default function Courses() {
                 {classesLoaded && classes.length > 0 &&
                     classes.map(function(data) {
                         return (
-                            <CourseCard title={data.teacherCourse.course.title} description={data.teacherCourse.course.description} id={data.id} />                       
+                            <CourseCard key='{data.id}' title={data.teacherCourse.course.title} description={data.teacherCourse.course.description} id={data.id} />                       
                         )
                     })
                 }
