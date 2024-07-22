@@ -1,4 +1,5 @@
 # Frontend web application for a School Management System designed and created by Carter Moseley
+### For more information, visit my website 
 
 ## Available Scripts
 
