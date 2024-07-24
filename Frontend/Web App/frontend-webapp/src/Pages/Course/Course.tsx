@@ -1,7 +1,7 @@
 import "./Course.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookie from 'universal-cookie';
-import { AuthenticateAndReload, baseLink, UserAllowedOnPage, } from "../../General/Authentication";
+import { AuthenticateAndReload, baseLink } from "../../General/Authentication";
 import axios from 'axios';
 import { useEffect } from "react";
 import React from "react";
@@ -21,15 +21,18 @@ export default function Course() {
     // Get all the assignments for a class on page load
     useEffect(() => {
         async function getAssignments() {
-            await axios.get(baseLink + '/studentAssignment/' + params.courseId, {})
-                .then(function(response) {
-                    let newAssignments = { ...assignments };
-                    newAssignments = response.data;
-                    setAssignments(newAssignments);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
+            if (cookies.get("authenticated") != undefined) {
+                await axios.get(baseLink + '/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated")["id"], {})
+                    .then(function(response) {
+                        let newAssignments = { ...assignments };
+                        newAssignments = response.data;
+                        setAssignments(newAssignments);
+                        console.log(response.data);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    })
+            }
         }
 
         getAssignments();
@@ -40,7 +43,7 @@ export default function Course() {
     return (
         <div>
             {/* If assignments don't exist */}
-            {!(assignments.length == 0) &&
+            {(assignments.length == 0) &&
                 <CircularProgress color="primary" />
             }
 

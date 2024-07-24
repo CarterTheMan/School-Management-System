@@ -22,17 +22,3 @@ export function AuthenticateAndReload(pageURL : string) {
         }
     }, []);
 }
-
-// Make sure a user is on a page they are allowed to access
-export function UserAllowedOnPage(userId: number) {
-    const cookies = new Cookies();
-    let navigate = useNavigate(); 
-
-    // on load
-    useEffect(() => {
-        if (cookies.get("authenticated")["id"] != userId) {
-            cookies.remove("authenticated", {path: "/"});
-            navigate("/login");
-        }
-    }, []);
-}

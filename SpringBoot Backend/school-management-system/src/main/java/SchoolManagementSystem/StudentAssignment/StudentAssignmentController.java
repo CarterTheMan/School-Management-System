@@ -34,12 +34,12 @@ public class StudentAssignmentController {
     }
 
     //This returns all assignments for a course
-    @RequestMapping(method = RequestMethod.GET, path = "/courseAssignments/{student_course_id}")
-    List<StudentAssignment> getCourseAssignments(@PathVariable Integer student_course_id) {
+    @RequestMapping(method = RequestMethod.GET, path = "/studentAssignments/{student_course_id}/{student_id}")
+    List<StudentAssignment> getCourseAssignments(@PathVariable Integer student_course_id, @PathVariable Integer student_id) {
         List<StudentAssignment> assignmentList = studentAssignments.findAll();
         List<StudentAssignment> list = new java.util.ArrayList<>(Collections.emptyList());
         for (StudentAssignment sa : assignmentList) {
-            if (sa.getStudentCourse().getId().equals(student_course_id)) {
+            if (sa.getStudentCourse().getId().equals(student_course_id) && sa.getStudentCourse().getStudent().getId() == student_id) {
                 list.add(sa);
             }
         }
