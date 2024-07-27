@@ -51,9 +51,9 @@ export default function Course() {
             {(assignments.length > 0) && 
             assignments.map(
                 function(data) {
-                    if (data.studentCourse.student.id != undefined) {
+                    if (data.studentCourse.student != undefined) {
                         return (
-                            <p>{data.studentCourse.student.id}</p>                       
+                            <p key='{data.studentCourse.id}'>{data.studentCourse.student.id}</p>                       
                         )
                     } 
                 })
