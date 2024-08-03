@@ -8,12 +8,20 @@ import React from "react";
 import Cookies from "universal-cookie";
 import CircularProgress from '@mui/material/CircularProgress';
 import { studentAssignment } from "../../General/TableTypes";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 export default function Course() {
     let navigate = useNavigate(); 
     let params = useParams();
     const [assignments, setAssignments] = React.useState<studentAssignment[]>([]);
+    const [overallGrade, setOverallGrade] = React.useState<number>(0);
     const cookies = new Cookies();
 
     AuthenticateAndReload("/course/" + params.courseId);
@@ -28,6 +36,15 @@ export default function Course() {
                         newAssignments = response.data;
                         setAssignments(newAssignments);
                         console.log(response.data);
+
+                        let grade = 0;
+                        for (let i = 0; i < response.data.length; i++) {
+                            grade += response.data[i].grade;
+                        }
+                        grade = grade / response.data.length;
+                        grade = Math.round(grade * 100) / 100;
+                        setOverallGrade(grade);
+                        console.log(grade);
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -49,14 +66,38 @@ export default function Course() {
 
             {/* If assignments exist */}
             {(assignments.length > 0) && 
-            assignments.map(
-                function(data) {
-                    if (data.studentCourse.student != undefined) {
-                        return (
-                            <p key='{data.studentCourse.id}'>{data.studentCourse.student.id}</p>                       
-                        )
-                    } 
-                })
+            <div style={{width: "95%", marginTop: "5vh", marginLeft: "2.5%", marginRight: "2.5%" }}>
+                <b>Overall Grade: {overallGrade}</b>
+                <br />
+                <br />
+                <TableContainer component={Paper} >
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left" style={{width: "15%", fontWeight: "bold"}}>Assignment</TableCell>
+                                <TableCell align="left" style={{width: "20%", fontWeight: "bold"}}>Description</TableCell>
+                                <TableCell align="left" style={{width: "10%", fontWeight: "bold"}}>Grade</TableCell>
+                                <TableCell align="left" style={{width: "30%", fontWeight: "bold"}}>Feedback</TableCell>
+                            </TableRow>
+                        </TableHead>
+                    <TableBody>
+                        {assignments.map((data) => (
+                            <TableRow
+                                key={data.id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {data.courseAssignment.title}
+                                </TableCell>
+                                <TableCell align="left">{data.courseAssignment.description}</TableCell>
+                                <TableCell align="left">{Math.round(data.grade * 100) / 100}</TableCell>
+                                <TableCell align="left">{data.feedback}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
             }
         </div>
     )

@@ -21,14 +21,14 @@ public class StudentAssignment {
     CourseAssignment courseAssignment;
 
     @Column
-    Integer grade;
+    Double grade;
 
     @Column
     String feedback;
 
     public StudentAssignment() {}
 
-    public StudentAssignment(StudentCourse s, CourseAssignment ca, Integer grade, String feedback) {
+    public StudentAssignment(StudentCourse s, CourseAssignment ca, Double grade, String feedback) {
         this.studentCourse = s;
         this.courseAssignment = ca;
         this.grade = grade;
@@ -47,11 +47,11 @@ public class StudentAssignment {
         return courseAssignment;
     }
 
-    public Integer getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public String getFeeback() {
+    public String getFeedback() {
         return feedback;
     }
 

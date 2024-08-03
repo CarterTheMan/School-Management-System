@@ -95,7 +95,7 @@ CREATE TABLE student_assignment (
 	id INT NOT NULL AUTO_INCREMENT, 
     student_course_id INT NOT NULL, 
     course_assignment_id INT NOT NULL, 
-    grade INT, 
+    grade DOUBLE, 
     feedback VARCHAR(225), 
     PRIMARY KEY (id)
 );
