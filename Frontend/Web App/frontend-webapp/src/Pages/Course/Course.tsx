@@ -82,21 +82,21 @@ export default function Course() {
                                 <TableCell align="left" style={{width: "30%", fontWeight: "bold"}}>Feedback</TableCell>
                             </TableRow>
                         </TableHead>
-                    <TableBody>
-                        {assignments.map((data) => (
-                            <TableRow
-                                key={data.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {data.courseAssignment.title}
-                                </TableCell>
-                                <TableCell align="left">{data.courseAssignment.description}</TableCell>
-                                <TableCell align="left">{data.grade != null ? Math.round(data.grade * 100) / 100 : ""}</TableCell>
-                                <TableCell align="left">{data.feedback}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                        <TableBody>
+                            {assignments.map((data) => (
+                                <TableRow
+                                    key={data.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {data.courseAssignment.title}
+                                    </TableCell>
+                                    <TableCell align="left">{data.courseAssignment.description}</TableCell>
+                                    <TableCell align="left">{data.grade != null ? Math.round(data.grade * 100) / 100 : ""}</TableCell>
+                                    <TableCell align="left">{data.feedback}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
                     </Table>
                 </TableContainer>
             </div>
