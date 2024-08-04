@@ -37,10 +37,14 @@ export default function Course() {
                         setAssignments(newAssignments);
 
                         let grade = 0;
+                        let numOfGrades = 0;
                         for (let i = 0; i < response.data.length; i++) {
-                            grade += response.data[i].grade;
+                            if (response.data[i].grade != null) {
+                                grade += response.data[i].grade;
+                                numOfGrades++;
+                            }
                         }
-                        grade = grade / response.data.length;
+                        grade = grade / numOfGrades;
                         grade = Math.round(grade * 100) / 100;
                         setOverallGrade(grade);
                     })
@@ -88,7 +92,7 @@ export default function Course() {
                                     {data.courseAssignment.title}
                                 </TableCell>
                                 <TableCell align="left">{data.courseAssignment.description}</TableCell>
-                                <TableCell align="left">{Math.round(data.grade * 100) / 100}</TableCell>
+                                <TableCell align="left">{data.grade != null ? Math.round(data.grade * 100) / 100 : ""}</TableCell>
                                 <TableCell align="left">{data.feedback}</TableCell>
                             </TableRow>
                         ))}
