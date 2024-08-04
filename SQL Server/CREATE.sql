@@ -88,6 +88,8 @@ INSERT INTO student_course
 	(student_id, teacher_course_id) 
 VALUES 
 	(1, 1), 
+    (1, 2),
+    (1, 3),
     (2, 2), 
     (3, 3);
 
@@ -104,5 +106,6 @@ INSERT INTO student_assignment
 	(student_course_id, course_assignment_id, grade, feedback) 
 VALUES 
 	(1, 1, 90, 'Well done for the start of the year'), 
-    (2, 2, 73, 'Please study the notes I provide before you start the assignment'), 
-    (3, 3, NULL, NULL);
+    (2, 2, 73, 'Please study the notes I provide before you start the assignment'),
+    (2, 2, 74.5, 'Could have gone better'), 
+    (2, 2, null, null)

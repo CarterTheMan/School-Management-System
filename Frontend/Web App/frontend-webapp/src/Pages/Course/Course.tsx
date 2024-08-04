@@ -35,7 +35,6 @@ export default function Course() {
                         let newAssignments = { ...assignments };
                         newAssignments = response.data;
                         setAssignments(newAssignments);
-                        console.log(response.data);
 
                         let grade = 0;
                         for (let i = 0; i < response.data.length; i++) {
@@ -44,7 +43,6 @@ export default function Course() {
                         grade = grade / response.data.length;
                         grade = Math.round(grade * 100) / 100;
                         setOverallGrade(grade);
-                        console.log(grade);
                     })
                     .catch(function(error) {
                         console.log(error);
