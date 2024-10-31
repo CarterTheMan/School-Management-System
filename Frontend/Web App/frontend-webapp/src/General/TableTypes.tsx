@@ -46,4 +46,3 @@ export interface studentAssignment {
     grade: number, 
     feedback: String
 }
-
