@@ -108,4 +108,13 @@ VALUES
 	(1, 1, 90, 'Well done for the start of the year'), 
     (2, 2, 73, 'Please study the notes I provide before you start the assignment'),
     (2, 2, 74.5, 'Could have gone better'), 
-    (2, 2, null, null)
+    (2, 2, null, null);
+    
+CREATE TABLE cookie (
+	id INT NOT NULL AUTO_INCREMENT, 
+    value VARCHAR(225),
+    user_id INT,
+    user_type INT, -- 1 = student, 2 = teacher
+    expire DATETIME,
+    PRIMARY KEY (id)
+);

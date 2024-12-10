@@ -3,6 +3,9 @@ package SchoolManagementSystem.Student;
 import java.util.List;
 import java.util.Optional;
 
+import SchoolManagementSystem.Cookie.Cookie;
+import SchoolManagementSystem.Cookie.CookieController;
+import SchoolManagementSystem.Cookie.CookieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,18 @@ public class StudentController {
     @Autowired
     StudentRepository Students;
 
+    @Autowired
+    CookieController cookieMaker;
+
+    @Autowired
+    CookieRepository cookies;
+
     //This allows the user to add a student
     @RequestMapping(method = RequestMethod.POST, path = "/register-student")
     Student createStudent(@RequestBody Student s) {
-        Students.save(s);
+        Student newStudent = new Student(s.firstname, s.lastname, s.username, s.password);
+        Students.save(newStudent);
+        Cookie generatedCookie = cookieMaker.createCookie(newStudent.id, 1);
         return s;
     }
 
@@ -39,6 +50,7 @@ public class StudentController {
         List<Student> studentList = Students.findAll();
         for (Student stu : studentList) {
             if (stu.getUsername().equals(s.getUsername()) && stu.getPassword().equals(s.getPassword())) {
+                Cookie generatedCookie = cookieMaker.createCookie(stu.id, 1);
                 return new ResponseEntity<>(stu.id.toString(), HttpStatus.OK);
             } else if (stu.getUsername().equals(s.getUsername())) {
                 return new ResponseEntity<>("Incorrect password", HttpStatus.OK);
