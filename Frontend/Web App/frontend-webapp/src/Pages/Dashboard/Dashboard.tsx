@@ -16,6 +16,7 @@ export default function Dashboard() {
 
     useEffect(() => {     
         if (cookies.get("authenticated") != undefined) {
+            // TODO: Update to use new cookie
             setUsername(cookies.get("authenticated")["username"]);
         }
     }, []);

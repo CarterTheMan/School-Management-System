@@ -35,6 +35,7 @@ export default function Grades() {
     useEffect(() => {
         async function getGrades() {
             if (cookies.get("authenticated") != undefined) {
+                // TODO: Update to use new cookie
                 await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated")["id"], {})
                     .then(function(response) {
                         let newGrades = { ...grades };

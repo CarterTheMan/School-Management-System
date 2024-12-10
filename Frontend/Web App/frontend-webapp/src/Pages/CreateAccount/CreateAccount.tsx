@@ -46,6 +46,7 @@ export default function CreateAccount({type} : props) {
     if (authenticated) {
       // Create new authentication cookie
       const cookies = new Cookies(null, { path: '/' });
+      // TODO: Update to use new cookie
       cookies.set("authenticated", {
         "userType" : type,
         "id" : id,

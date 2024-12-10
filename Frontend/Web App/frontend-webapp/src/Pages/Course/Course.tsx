@@ -30,6 +30,7 @@ export default function Course() {
     useEffect(() => {
         async function getAssignments() {
             if (cookies.get("authenticated") != undefined) {
+                // TODO: Update to use new cookie
                 await axios.get(baseLink + '/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated")["id"], {})
                     .then(function(response) {
                         let newAssignments = { ...assignments };
