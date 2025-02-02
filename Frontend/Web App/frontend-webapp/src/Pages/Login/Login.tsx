@@ -34,47 +34,36 @@ export default function Login() {
     console.log(params.id);
     let authenticated : boolean = false;
     let incorrectPassword : boolean = false;
-    let id : number = 0;
-    let type : String = "";
-    const userTypes: String[] = ["student", "teacher"];
+    let value : String = "";
 
-    // Iterate through all users to try and login
-    for (const userType of userTypes) {
-      await axios.post(baseLink + '/login-' + userType, {
-        "username" : username, 
-        "password" : password
-      })  
-      .then(function(response) {
-        if (response.data == "Incorrect password") {
-          incorrectPassword = true;
-        } else {
-          authenticated = true;
-          id = parseInt(response.data);
-          type = userType;
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
-
-      // Clear the username and password fields
-      setUsername("");
-      setPassword("");
-
-      if (authenticated || passwordIncorrect) {
-        break;
+    // Try to login the user
+    await axios.post(baseLink + '/login-user', {
+      "username" : username, 
+      "password" : password
+    })  
+    .then(function(response) {
+      if (response.data == "Incorrect password") {
+        incorrectPassword = true;
+      } else {
+        authenticated = true;
+        value = response.data;
       }
-    }
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
 
-    // If authenticated
+    // Clear the username and password fields
+    setUsername("");
+    setPassword("");
+
+    // If the user does exist and they are authenticated
     if (authenticated) {
       // Create new authentication cookie
       const cookies = new Cookies(null, { path: '/' });
-      // TODO: Update to use new cookie
+      // Update to use new cookie
       cookies.set("authenticated", {
-        "userType" : type,
-        "id" : id,
-        "username" : username
+        "value" : value
       });
 
       // If there is a redirect cookie, go to redirect link

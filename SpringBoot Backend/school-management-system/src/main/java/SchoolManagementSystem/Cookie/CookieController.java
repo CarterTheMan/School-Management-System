@@ -19,9 +19,7 @@ public class CookieController {
         // If the cookie already exists for that user, update valid time
         for (Cookie cookie : cookies.findAll()) {
             if (cookie.user_id.equals(c.user_id) && cookie.user_type.equals(c.user_type)) {
-                cookie.setExpire(ZonedDateTime.now().plusMinutes(30L));
-                cookies.save(cookie);
-                return cookie;
+                return updateCookieTime(cookie.getValue());
             }
         }
 
@@ -37,9 +35,7 @@ public class CookieController {
         // If the cookie already exists for that user, update valid time
         for (Cookie cookie : cookies.findAll()) {
             if (cookie.user_id.equals(user_id) && cookie.user_type.equals(user_type)) {
-                cookie.setExpire(ZonedDateTime.now().plusMinutes(30L));
-                cookies.save(cookie);
-                return cookie;
+                return updateCookieTime(cookie.getValue());
             }
         }
 
@@ -47,6 +43,15 @@ public class CookieController {
         Cookie newCookie = new Cookie(user_id, user_type);
         cookies.save(newCookie);
         return newCookie;
+    }
+
+    //Updates a cookies time based on the value
+    @RequestMapping(method = RequestMethod.GET, path = "/update-cookie-time")
+    public Cookie updateCookieTime(String value) {
+        Cookie cookieToUpdate = cookies.findByValue(value);
+        cookieToUpdate.setExpire(ZonedDateTime.now().plusMinutes(30L));
+        cookies.save(cookieToUpdate);
+        return cookieToUpdate;
     }
 
     //This returns a list of all the cookie

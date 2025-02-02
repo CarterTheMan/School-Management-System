@@ -1,37 +1,25 @@
 CREATE SCHEMA IF NOT EXISTS school_management_system; 
 USE school_management_system;
 
-CREATE TABLE student (
+CREATE TABLE user (
 	id INT NOT NULL AUTO_INCREMENT, 
     firstname VARCHAR(45) NOT NULL,
     lastname VARCHAR(45) NOT NULL,
     username VARCHAR(45) NOT NULL,
     password VARCHAR(45) NOT NULL,
+    usertype INT NOT NULL,			  -- 0 for students, 1 for teachers
     PRIMARY KEY (id)
 );
 
-INSERT INTO student
-	(firstname, lastname, username, password)
+INSERT INTO user
+	(firstname, lastname, username, password, usertype)
 VALUES
-	('John', 'Smith', 'JSmith', 'SmithTheMan'), 
-    ('Carol', 'Pipper', 'CPipper', 'Pipper!'), 
-    ('Riley', 'Norris', 'RNorris', 'RiNor');
-
-CREATE TABLE teacher (
-	id INT NOT NULL AUTO_INCREMENT, 
-    firstname VARCHAR(45) NOT NULL,
-    lastname VARCHAR(45) NOT NULL,
-    username VARCHAR(45) NOT NULL,
-    password VARCHAR(45) NOT NULL,
-    PRIMARY KEY (id)
-);
-
-INSERT INTO teacher 
-	(firstname, lastname, username, password)
-VALUES
-	('Kevin', 'Moran', 'KMoran', 'MKevin'),
-    ('Sarah', 'Smith', 'SSmith', 'MrsSmith'),
-    ('Jacob', 'Jingle', 'JJingle', 'JingleHeimerSmith');
+	('John', 'Smith', 'JSmith', 'SmithTheMan', 0), 
+    ('Carol', 'Pipper', 'CPipper', 'Pipper!', 0), 
+    ('Riley', 'Norris', 'RNorris', 'RiNor', 0),
+    ('Kevin', 'Moran', 'KMoran', 'MKevin', 1),
+    ('Sarah', 'Smith', 'SSmith', 'MrsSmith', 1),
+    ('Jacob', 'Jingle', 'JJingle', 'JingleHeimerSmith', 1);
 
 CREATE TABLE course (
 	id INT NOT NULL AUTO_INCREMENT, 
