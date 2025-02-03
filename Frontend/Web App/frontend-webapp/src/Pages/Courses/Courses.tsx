@@ -1,7 +1,7 @@
 import "./Courses.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookie from 'universal-cookie';
-import { AuthenticateAndReload, baseLink } from "../../General/Authentication";
+import { AuthenticateAndReload, GetUserType } from "../../General/Functions";
 import axios from 'axios';
 import { useEffect } from "react";
 import React from "react";
@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CourseCard from "../../Components/CourseCards/CourseCard";
 import Cookies from "universal-cookie";
 import { studentCourse } from "../../General/TableTypes";
+import { baseLink, users } from "../../General/variables";
 
 export default function Courses() {
     let navigate = useNavigate(); 
@@ -22,8 +23,11 @@ export default function Courses() {
     useEffect(() => {        
         async function getCourses() {
             if (cookies.get("authenticated") != undefined) {
-                // TODO: Update to use new cookie
-                axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["id"], {})
+                // Wait to get the user type
+                let userType = await GetUserType();
+
+                if (userType == users.student) {
+                    axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         setClasses(response.data);
                         setClassesLoaded(true);
@@ -31,6 +35,7 @@ export default function Courses() {
                     .catch(function(error) {
                         console.log(error);
                     })
+                } 
             }
         }
 

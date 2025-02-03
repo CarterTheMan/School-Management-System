@@ -1,8 +1,8 @@
 package SchoolManagementSystem.StudentCourse;
 
-import SchoolManagementSystem.Student.Student;
 import SchoolManagementSystem.StudentAssignment.StudentAssignment;
 import SchoolManagementSystem.TeacherCourse.TeacherCourse;
+import SchoolManagementSystem.User.User;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -18,7 +18,7 @@ public class StudentCourse {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    Student student;
+    User student;
 
     @ManyToOne
     @JoinColumn(name = "teacher_course_id", nullable = false)
@@ -29,7 +29,7 @@ public class StudentCourse {
 
     public StudentCourse() {}
 
-    public StudentCourse(Student s, TeacherCourse tc) {
+    public StudentCourse(User s, TeacherCourse tc) {
         this.student = s;
         this.teacherCourse = tc;
     }
@@ -38,7 +38,7 @@ public class StudentCourse {
         return id;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
@@ -46,7 +46,7 @@ public class StudentCourse {
         return teacherCourse;
     }
 
-    public void setStudent(Student s) {
+    public void setStudent(User s) {
         student = s;
     }
 

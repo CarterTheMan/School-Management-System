@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { baseLink } from '../../General/Authentication';
+import { baseLink } from '../../General/variables';
 
 interface props {
     type: string
@@ -18,23 +18,26 @@ export default function CreateAccount({type} : props) {
   const [username, setUsername] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
 
-
-
   // If successful account creation, go to redirect page or the dashboard
   const handleSubmit = async function () {
+    const userTypes : { [key: string]: number } = {
+      "student" : 0, 
+      "teacher" : 1
+    }
     let authenticated : boolean = false;
-    let id : number = 0;
+    let value : string = "";
 
     // Create the user 
-    await axios.post(baseLink + '/register-' + type, {
+    await axios.post(baseLink + '/register-user', {
       "firstname": firstName,
       "lastname": lastName,
       "username" : username, 
-      "password" : password
+      "password" : password,
+      "usertype" : userTypes[type]
     })
     .then(function(response) {
       if (response.status == 200) {
-        id = parseInt(response.data.id);
+        value = response.data;
         authenticated = true;
       }
     })
@@ -46,11 +49,8 @@ export default function CreateAccount({type} : props) {
     if (authenticated) {
       // Create new authentication cookie
       const cookies = new Cookies(null, { path: '/' });
-      // TODO: Update to use new cookie
       cookies.set("authenticated", {
-        "userType" : type,
-        "id" : id,
-        "username" : username
+        "value" : value
       });
 
       // If there is a redirect cookie, go to redirect link
