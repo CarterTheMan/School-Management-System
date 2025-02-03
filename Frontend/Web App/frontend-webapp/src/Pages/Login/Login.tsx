@@ -5,7 +5,7 @@ import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import Cookie from 'universal-cookie';
 import axios from 'axios';
-import { baseLink } from '../../General/Authentication';
+import { baseLink } from '../../General/variables';
 
 
 export default function Login() {
@@ -31,7 +31,6 @@ export default function Login() {
    * Check login for all different user types so they don't have to clarify
    *  */ 
   const handleSubmit = async function () {
-    console.log(params.id);
     let authenticated : boolean = false;
     let incorrectPassword : boolean = false;
     let value : String = "";

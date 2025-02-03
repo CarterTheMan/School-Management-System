@@ -1,6 +1,7 @@
 package SchoolManagementSystem.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import SchoolManagementSystem.Cookie.Cookie;
@@ -20,6 +21,9 @@ public class UserController {
     @Autowired
     CookieController Cookies;
 
+    @Autowired
+    CookieRepository CookiesRepo;
+
     //This allows the user to add a new user
     //TODO: Handle the case the case that a user already exists
     @RequestMapping(method = RequestMethod.POST, path = "/register-user")
@@ -37,8 +41,8 @@ public class UserController {
     }
 
     //This returns an individual user
-    @RequestMapping(method = RequestMethod.GET, path = "/user/{id}")
-    Optional<User> getUser(@PathVariable Integer id) {
+    @RequestMapping(method = RequestMethod.GET, path = "/userId/{id}")
+    Optional<User> getUserId(@PathVariable Integer id) {
         return Users.findById(id);
     }
 
@@ -48,12 +52,26 @@ public class UserController {
         List<User> userList = Users.findAll();
         for (User user : userList) {
             if (user.getUsername().equals(u.getUsername()) && user.getPassword().equals(u.getPassword())) {
-                Cookie generatedCookie = Cookies.createCookie(user.id, 1);
+                Cookie generatedCookie = Cookies.createCookie(user.id, user.usertype);
                 return new ResponseEntity<>(generatedCookie.getValue(), HttpStatus.OK);
             } else if (user.getUsername().equals(u.getUsername())) {
                 return new ResponseEntity<>("Incorrect password", HttpStatus.OK);
             }
         }
         return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+    }
+
+    //This returns the use based on their cookie value
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{cookieValue}")
+    Optional<User> getUser(@PathVariable String cookieValue) {
+        Cookie cookie = CookiesRepo.findByValue(cookieValue);
+        return Users.findById(cookie.getUserId());
+    }
+
+    //This returns the type of the user
+    @RequestMapping(method = RequestMethod.POST, path = "/user-type")
+    public Integer getUserType(@RequestBody Map<String, String> cookieValue) {
+        Cookie cookie = CookiesRepo.findByValue(cookieValue.get("value"));
+        return cookie.getUserType();
     }
 }

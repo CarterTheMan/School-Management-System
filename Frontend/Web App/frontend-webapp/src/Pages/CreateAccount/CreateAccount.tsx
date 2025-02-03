@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { baseLink } from '../../General/Authentication';
+import { baseLink } from '../../General/variables';
 
 interface props {
     type: string

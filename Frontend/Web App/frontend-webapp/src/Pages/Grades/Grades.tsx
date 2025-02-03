@@ -4,7 +4,8 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import Cookie from 'universal-cookie';
-import { AuthenticateAndReload, baseLink } from "../../General/Authentication";
+import { AuthenticateAndReload } from "../../General/Functions";
+import { baseLink } from "../../General/variables";
 import React, { useEffect } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -35,8 +36,7 @@ export default function Grades() {
     useEffect(() => {
         async function getGrades() {
             if (cookies.get("authenticated") != undefined) {
-                // TODO: Update to use new cookie
-                await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated")["id"], {})
+                await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         let newGrades = { ...grades };
                         newGrades = response.data;

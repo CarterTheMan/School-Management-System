@@ -1,17 +1,10 @@
-export interface student {
+export interface user {
     id: number, 
     firstname: String,
     lastname: String, 
     username: String, 
-    password: String
-}
-
-export interface teacher {
-    id: number, 
-    firstname: String,
-    lastname: String, 
-    username: String, 
-    password: String
+    password: String,
+    usertype: number
 }
 
 export interface course {
@@ -22,13 +15,13 @@ export interface course {
 
 export interface teacherCourse {
     id: number, 
-    teacher: teacher,
+    teacher: user,
     course: course
 }
 
 export interface studentCourse {
     id: number, 
-    student: student, 
+    student: user, 
     teacherCourse: teacherCourse
 }
 
