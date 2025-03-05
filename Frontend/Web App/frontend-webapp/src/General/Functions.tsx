@@ -37,3 +37,4 @@ export async function GetUserType(): Promise<number> {
         throw error; // You can handle the error as needed
     }
 }
+
