@@ -20,7 +20,7 @@ Steps to run:
 
 TODO: 
 1. Handle the timing with cookies 
-   - Update the time every time a cookie is called
+   - Update the time every time a cookie is called in the DB. This is updated in the browser
    - Automatically log out after the cookie has expired 
 2. Center the current HTML tables and cards that are slightly misaligned 
 3. Implement teacher functionality 
