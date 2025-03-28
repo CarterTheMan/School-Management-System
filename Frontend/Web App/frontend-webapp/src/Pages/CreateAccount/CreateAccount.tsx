@@ -5,6 +5,7 @@ import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { baseLink } from '../../General/variables';
+import { updateCookieTime } from '../../General/Functions';
 
 interface props {
     type: string
@@ -52,14 +53,13 @@ export default function CreateAccount({type} : props) {
       cookies.set("authenticated", {
         "value" : value
       });
+      updateCookieTime();
 
-      // If there is a redirect cookie, go to redirect link
+      // If there is a redirect cookie, go to redirect link, else go to dashboard
       if (cookies.get("redirect") != undefined) {
         const redirectLink = cookies.get("redirect");
         cookies.remove("redirect");
         navigate(redirectLink);
-
-      // If there isn't a redirect, go to dashboard
       } else {
         navigate("/dashboard");
       }

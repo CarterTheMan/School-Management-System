@@ -1,11 +1,8 @@
 import "./Grades.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import Cookie from 'universal-cookie';
 import { AuthenticateAndReload } from "../../General/Functions";
-import { baseLink } from "../../General/variables";
 import React, { useEffect } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axiosInstance from "../../General/WebCalls";
 
 type allGrades = {
     title: string, 
@@ -36,7 +34,7 @@ export default function Grades() {
     useEffect(() => {
         async function getGrades() {
             if (cookies.get("authenticated") != undefined) {
-                await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated")["value"], {})
+                await axiosInstance.get('/studentGrades/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         let newGrades = { ...grades };
                         newGrades = response.data;

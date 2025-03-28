@@ -1,13 +1,11 @@
 import "./Dashboard.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import Cookie from 'universal-cookie';
-import axios from 'axios';
 import { AuthenticateAndReload } from "../../General/Functions";
 import { useEffect } from "react";
 import React from "react";
-import { baseLink } from "../../General/variables";
 import { user } from "../../General/TableTypes"
+import axiosInstance from "../../General/WebCalls";
 
 export default function Dashboard() {
     let navigate = useNavigate(); 
@@ -18,8 +16,9 @@ export default function Dashboard() {
 
     useEffect(() => {     
         async function getUser() {
+            console.log(cookies.get("authenticated"));
             if (cookies.get("authenticated") != undefined) {
-                await axios.get<user>(baseLink + '/user/' + cookies.get("authenticated")["value"], {})
+                await axiosInstance.get<user>('/user/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         setUsername(response.data.username);
                     })
