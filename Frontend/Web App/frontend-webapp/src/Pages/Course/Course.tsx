@@ -1,8 +1,6 @@
 import "./Course.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthenticateAndReload } from "../../General/Functions";
-import { baseLink } from "../../General/variables";
-import axios from 'axios';
 import { useEffect } from "react";
 import React from "react";
 import Cookies from "universal-cookie";
@@ -15,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axiosInstance from "../../General/WebCalls";
 
 
 export default function Course() {
@@ -30,7 +29,7 @@ export default function Course() {
     useEffect(() => {
         async function getAssignments() {
             if (cookies.get("authenticated") != undefined) {
-                await axios.get(baseLink + '/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated"), {})
+                await axiosInstance.get('/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         let newAssignments = { ...assignments };
                         newAssignments = response.data;
@@ -69,7 +68,7 @@ export default function Course() {
             {/* If assignments exist */}
             {(assignments.length > 0) && 
             <div style={{width: "95%", marginTop: "5vh", marginLeft: "2.5%", marginRight: "2.5%" }}>
-                <b>Overall Grade: {overallGrade}</b>
+                <b>Overall Grade: {overallGrade}%</b>
                 <br />
                 <br />
                 <TableContainer component={Paper} >

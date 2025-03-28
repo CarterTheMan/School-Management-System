@@ -66,13 +66,11 @@ export default function Login() {
       });
       updateCookieTime();
 
-      // If there is a redirect cookie, go to redirect link
+      // If there is a redirect cookie, go to redirect link, else go to dashboard
       if (cookies.get("redirect") != undefined) {
         const redirectLink = cookies.get("redirect");
         cookies.remove("redirect");
         navigate(redirectLink);
-
-      // If there isn't a redirect, go to dashboard
       } else {
         navigate("/dashboard");
       }

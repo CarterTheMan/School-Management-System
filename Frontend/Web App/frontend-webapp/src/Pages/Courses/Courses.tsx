@@ -1,7 +1,6 @@
 import "./Courses.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthenticateAndReload, GetUserType } from "../../General/Functions";
-import axios from 'axios';
 import { useEffect } from "react";
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -9,6 +8,7 @@ import CourseCard from "../../Components/CourseCards/CourseCard";
 import Cookies from "universal-cookie";
 import { studentCourse } from "../../General/TableTypes";
 import { baseLink, users } from "../../General/variables";
+import axiosInstance from "../../General/WebCalls";
 
 export default function Courses() {
     let navigate = useNavigate(); 
@@ -26,7 +26,7 @@ export default function Courses() {
                 let userType = await GetUserType();
 
                 if (userType == users.student) {
-                    axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated"), {})
+                    axiosInstance.get('/studentsCourses/' + cookies.get("authenticated")["value"], {})
                     .then(function(response) {
                         setClasses(response.data);
                         setClassesLoaded(true);
