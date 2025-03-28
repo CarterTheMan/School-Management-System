@@ -5,6 +5,7 @@ import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { baseLink } from '../../General/variables';
+import { updateCookieTime } from '../../General/Functions';
 
 interface props {
     type: string
@@ -52,6 +53,7 @@ export default function CreateAccount({type} : props) {
       cookies.set("authenticated", {
         "value" : value
       });
+      updateCookieTime();
 
       // If there is a redirect cookie, go to redirect link
       if (cookies.get("redirect") != undefined) {

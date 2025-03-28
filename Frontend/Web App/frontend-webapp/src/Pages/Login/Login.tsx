@@ -3,9 +3,9 @@ import "./Login.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import Cookies from 'universal-cookie';
-import Cookie from 'universal-cookie';
 import axios from 'axios';
 import { baseLink } from '../../General/variables';
+import { updateCookieTime } from '../../General/Functions';
 
 
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
   // On load of login
   useEffect(() => {
     // If already authenticated, go to dashboard
-    const cookies = new Cookie();
+    const cookies = new Cookies();
     if (cookies.get("authenticated") != undefined) {
       navigate("/dashboard");
     }
@@ -64,6 +64,7 @@ export default function Login() {
       cookies.set("authenticated", {
         "value" : value
       });
+      updateCookieTime();
 
       // If there is a redirect cookie, go to redirect link
       if (cookies.get("redirect") != undefined) {

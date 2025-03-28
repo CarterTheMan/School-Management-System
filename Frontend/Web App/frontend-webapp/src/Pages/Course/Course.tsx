@@ -1,6 +1,5 @@
 import "./Course.css";
 import { useParams, useNavigate } from 'react-router-dom';
-import Cookie from 'universal-cookie';
 import { AuthenticateAndReload } from "../../General/Functions";
 import { baseLink } from "../../General/variables";
 import axios from 'axios';
@@ -31,7 +30,7 @@ export default function Course() {
     useEffect(() => {
         async function getAssignments() {
             if (cookies.get("authenticated") != undefined) {
-                await axios.get(baseLink + '/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated")["value"], {})
+                await axios.get(baseLink + '/studentAssignments/' + params.courseId + '/' + cookies.get("authenticated"), {})
                     .then(function(response) {
                         let newAssignments = { ...assignments };
                         newAssignments = response.data;

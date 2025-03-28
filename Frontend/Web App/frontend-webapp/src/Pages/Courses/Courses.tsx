@@ -1,6 +1,5 @@
 import "./Courses.css";
 import { useParams, useNavigate } from 'react-router-dom';
-import Cookie from 'universal-cookie';
 import { AuthenticateAndReload, GetUserType } from "../../General/Functions";
 import axios from 'axios';
 import { useEffect } from "react";
@@ -27,7 +26,7 @@ export default function Courses() {
                 let userType = await GetUserType();
 
                 if (userType == users.student) {
-                    axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated")["value"], {})
+                    axios.get(baseLink + '/studentsCourses/' + cookies.get("authenticated"), {})
                     .then(function(response) {
                         setClasses(response.data);
                         setClassesLoaded(true);

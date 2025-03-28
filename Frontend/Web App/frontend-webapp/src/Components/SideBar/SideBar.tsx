@@ -2,7 +2,6 @@ import React from 'react';
 import "./SideBar.css";
 import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, MenuItemStyles } from 'react-pro-sidebar';
 import { Button } from '@mui/material';
-import Cookie from 'universal-cookie';
 import { useNavigate, Link } from 'react-router-dom';
 import { Spiral as Hamburger } from 'hamburger-react'
 import Cookies from 'universal-cookie';

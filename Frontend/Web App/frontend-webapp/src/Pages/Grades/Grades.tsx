@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import Cookie from 'universal-cookie';
 import { AuthenticateAndReload } from "../../General/Functions";
 import { baseLink } from "../../General/variables";
 import React, { useEffect } from "react";
@@ -36,7 +35,7 @@ export default function Grades() {
     useEffect(() => {
         async function getGrades() {
             if (cookies.get("authenticated") != undefined) {
-                await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated")["value"], {})
+                await axios.get(baseLink + '/studentGrades/' + cookies.get("authenticated"), {})
                     .then(function(response) {
                         let newGrades = { ...grades };
                         newGrades = response.data;
