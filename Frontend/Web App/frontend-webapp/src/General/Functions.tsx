@@ -49,4 +49,3 @@ export function updateCookieTime() {
         cookie.set("authenticated", value, { expires : expirationTime });
     }
 }
-
