@@ -36,5 +36,4 @@ export default function Dashboard() {
             <h1>Logged in as {username}</h1>
         </div>
     )
-
 }
