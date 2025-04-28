@@ -119,4 +119,3 @@ export default function CreateAccount({type} : props) {
     </div>
   );
 }
-
