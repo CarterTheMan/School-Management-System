@@ -8,9 +8,9 @@ Users:
 - Admin (future plans) 
 
 Stack: 
-- MySQL server
-- Springboot backend
-- React frontend
+- MySQL Server
+- Springboot Backend
+- React Frontend
 
 Steps to run:
 1. Run the create.sql script in the "SQL Server" directory so to set up an initial DB. 
