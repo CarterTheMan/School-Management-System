@@ -25,3 +25,4 @@ TODO:
 2. Center the current HTML tables and cards that are slightly misaligned 
 3. Implement teacher functionality 
 4. Update the sidebar to be custom to the user type (teacher, student)
+
